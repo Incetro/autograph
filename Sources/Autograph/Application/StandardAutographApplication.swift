@@ -18,7 +18,7 @@ where
     C.Parameters == AutographExecutionParameters,
     M.Parameters == AutographExecutionParameters {
 
-    init(implementationComposer: C, inputFoldersProvider: M, help: String) {
+    public init(implementationComposer: C, inputFoldersProvider: M, help: String) {
         super.init(
             executionParametersReader: AutographExecutionParametersReader(),
             implementationComposer: implementationComposer,
