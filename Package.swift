@@ -17,7 +17,7 @@ let package = Package(
         .package(
             name: "Synopsis",
             url: "https://github.com/Incetro/synopsis",
-            from: "0.2.1"
+            from: "0.2.2"
         )
     ],
     targets: [
