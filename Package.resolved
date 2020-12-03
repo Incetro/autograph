@@ -86,9 +86,9 @@
         "package": "Synopsis",
         "repositoryURL": "https://github.com/Incetro/synopsis",
         "state": {
-          "branch": null,
-          "revision": "ccfd950a446a9f3a2f7b5e8a5fdb60d5698a6780",
-          "version": "0.2.2"
+          "branch": "main",
+          "revision": "0cafbc5ac4f5fa9868678b6fbf8d222e78a47e06",
+          "version": null
         }
       },
       {
