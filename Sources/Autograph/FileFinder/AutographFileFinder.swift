@@ -26,10 +26,13 @@ extension AutographFileFinder: FileFinder {
 
     public func findFiles(inFolder folder: String, parameters: AutographExecutionParameters) throws -> [URL] {
         let folder = try Folder(path: folder)
-        if parameters.recursiveSearch {
-            return folder.files.recursive.map(\.url)
-        } else {
-            return folder.files.map(\.path).compactMap(URL.init)
+        let files = parameters.recursiveSearch ? folder.files.recursive : folder.files
+        if parameters.verbose {
+            print("Finding files in the folder '\(folder.name)'")
+            files.forEach {
+                print($0.name)
+            }
         }
+        return files.map(\.path).compactMap(URL.init)
     }
 }
