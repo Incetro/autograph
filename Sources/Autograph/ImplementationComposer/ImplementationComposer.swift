@@ -10,6 +10,8 @@ import Foundation
 
 // MARK: - ImplementationComposer
 
+/// Utility responsible for composing implementation
+/// out of the given code specifications
 public protocol ImplementationComposer {
 
     /// Source code implementation alias
@@ -17,6 +19,9 @@ public protocol ImplementationComposer {
 
     /// Execution parameters alias
     associatedtype Parameters: ExecutionParameters
+
+    /// Default initializer
+    init()
 
     /// Compose some source code for parsed
     /// classes/structures/enums/functions/protocols etc.

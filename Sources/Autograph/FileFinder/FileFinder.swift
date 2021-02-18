@@ -9,6 +9,7 @@ import Foundation
 
 // MARK: - FileFinder
 
+/// Utility responsible for target files search
 public protocol FileFinder {
 
     /// /// Execution parameters alias

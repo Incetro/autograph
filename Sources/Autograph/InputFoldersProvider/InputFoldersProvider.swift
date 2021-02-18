@@ -9,10 +9,15 @@ import Foundation
 
 // MARK: - InputFoldersProvider
 
+/// Utility responsible for providing input folders list
+/// out of the given console application parameters
 public protocol InputFoldersProvider {
 
     /// Execution parameters alias
     associatedtype Parameters: ExecutionParameters
+
+    /// Default initializer
+    init()
 
     /// Obtain input folders list from
     /// - Parameter parameters: current execution parameters

@@ -9,6 +9,8 @@ import Foundation
 
 // MARK: - AutographExecutionParameters
 
+/// All available execution parameters which we
+/// can use for our code generation
 public struct AutographExecutionParameters: ExecutionParameters {
 
     /// Target project name
@@ -24,9 +26,9 @@ public struct AutographExecutionParameters: ExecutionParameters {
     /// during current codegen tool process
     /// recursively – going inside all subfolders
     ///
-    /// Default value: false
+    /// Default value: true
     /// ```
-    /// -recursive
+    /// -non_recursive flag turns it to false
     /// ```
     public let recursiveSearch: Bool
 

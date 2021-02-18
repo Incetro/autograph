@@ -9,6 +9,11 @@ import Foundation
 
 // MARK: - AutographImplementation
 
+/// Source code implementation.
+///
+/// After compilation, `ImplementationComposer` instances
+/// are used to generate utilities. Generated source code
+/// of these utilities is organised into `Implementation` instances.
 public final class AutographImplementation: Implementation {
 
     // MARK: - Properties
@@ -33,7 +38,6 @@ public final class AutographImplementation: Implementation {
     // MARK: - Equatable
 
     public static func == (left: AutographImplementation, right: AutographImplementation) -> Bool {
-        return left.filePath   == right.filePath
-            && left.sourceCode == right.sourceCode
+        left.filePath == right.filePath && left.sourceCode == right.sourceCode
     }
 }

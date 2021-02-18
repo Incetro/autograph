@@ -11,8 +11,9 @@ import Foundation
 
 /// Source code implementation.
 ///
-/// After compilation, `ImplementationComposer` instances are used to generate utilities.
-/// Generated source code of these utilities is organised into `Implementation` instances.
+/// After compilation, `ImplementationComposer` instances
+/// are used to generate utilities. Generated source code
+/// of these utilities is organised into `Implementation` instances.
 public protocol Implementation: Equatable {
 
     /// File path for future Swift class

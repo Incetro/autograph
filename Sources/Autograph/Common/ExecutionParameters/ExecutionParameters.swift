@@ -9,6 +9,8 @@ import Foundation
 
 // MARK: - ExecutionParameters
 
+/// All available execution parameters which we
+/// can use for our code generation
 public protocol ExecutionParameters: Equatable {
 
     /// Target project name
@@ -26,7 +28,7 @@ public protocol ExecutionParameters: Equatable {
     ///
     /// Default value: false
     /// ```
-    /// -recursive
+    /// -non_recursive
     /// ```
     var recursiveSearch: Bool { get }
 

@@ -9,6 +9,7 @@ import Foundation
 
 // MARK: - AutographExecutionParametersReader
 
+/// Utility responsible for command line parameters parsing
 public final class AutographExecutionParametersReader {
 
     // MARK: - Private
@@ -26,8 +27,8 @@ extension AutographExecutionParametersReader: ExecutionParametersReader {
 
         var verbose = false
         var printHelp = false
-        var recursiveSearch = false
-        var projectName = Constants.defaultProjectName
+        var recursiveSearch = true
+        var projectName = AutographConstants.defaultProjectName
         var raw: [String: String] = [:]
 
         for (index, argument) in commandLineArguments.enumerated() {
@@ -40,8 +41,8 @@ extension AutographExecutionParametersReader: ExecutionParametersReader {
                 printHelp = true
             }
 
-            if "-recursive" == argument {
-                recursiveSearch = true
+            if "-non_recursive" == argument {
+                recursiveSearch = false
             }
 
             if "-project_name" == argument {
@@ -97,5 +98,4 @@ private extension Array {
     func nextAfter(_ index: Array.Index) -> Element? {
         count > index + 1 ? self[index + 1] : nil
     }
-
 }

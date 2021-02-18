@@ -9,6 +9,8 @@ import Foundation
 
 // MARK: - FileWriter
 
+/// Utility responsible for writing implementation
+/// to their final destinations
 public protocol FileWriter {
 
     /// Source code implementation alias
@@ -21,8 +23,5 @@ public protocol FileWriter {
     /// - Parameters:
     ///   - implementations: target Swift classes implmentations
     ///   - parameters: current execution parameters
-    func write(
-        implementations: [Imp],
-        parameters: Parameters
-    ) throws
+    func write(implementations: [Imp], parameters: Parameters) throws
 }

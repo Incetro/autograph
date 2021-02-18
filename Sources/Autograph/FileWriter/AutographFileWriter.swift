@@ -10,6 +10,8 @@ import Foundation
 
 // MARK: - AutographFileWriter
 
+/// Utility responsible for writing implementation
+/// to their final destinations
 public final class AutographFileWriter {
 
     // MARK: - Private
