@@ -41,6 +41,18 @@ public protocol ExecutionParameters: Equatable {
     /// ```
     var verbose: Bool { get }
 
+    /// This param will add disabling comment to codegen helper.
+    /// It means that after first generation there won't be
+    /// a new generation attempt until you delete the disabling comment
+    /// from your necessary files. Use it when you want to generate your code
+    /// once and maintain it manually after that.
+    ///
+    /// Default value: false
+    /// ```
+    /// -ephemeral
+    /// ```
+    var ephemeral: Bool { get }
+
     /// True if need to print detailed info
     /// about current codegen tool
     ///

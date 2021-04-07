@@ -41,6 +41,18 @@ public struct AutographExecutionParameters: ExecutionParameters {
     /// ```
     public let verbose: Bool
 
+    /// This param will add disabling comment to codegen helper.
+    /// It means that after first generation there won't be
+    /// a new generation attempt until you delete the disabling comment
+    /// from your necessary files. Use it when you want to generate your code
+    /// once and maintain it manually after that.
+    ///
+    /// Default value: false
+    /// ```
+    /// -ephemeral
+    /// ```
+    public let ephemeral: Bool
+
     /// True if need to print detailed info
     /// about current codegen tool
     ///
@@ -71,12 +83,14 @@ public struct AutographExecutionParameters: ExecutionParameters {
         projectName:     String,
         recursiveSearch: Bool,
         verbose:         Bool,
+        ephemeral:       Bool,
         printHelp:       Bool,
         raw:             [String: String]
     ) {
         self.projectName      = projectName
         self.recursiveSearch  = recursiveSearch
         self.verbose          = verbose
+        self.ephemeral        = ephemeral
         self.printHelp        = printHelp
         self.raw              = raw
         self.workingDirectory = FileManager.default.currentDirectoryPath
@@ -91,9 +105,12 @@ public struct AutographExecutionParameters: ExecutionParameters {
     // MARK: - Equatable
 
     public static func == (left: AutographExecutionParameters, right: AutographExecutionParameters) -> Bool {
-        return left.projectName == right.projectName
-            && left.verbose     == right.verbose
-            && left.printHelp   == right.printHelp
-            && left.raw         == right.raw
+        return left.projectName      == right.projectName
+            && left.verbose          == right.verbose
+            && left.printHelp        == right.printHelp
+            && left.raw              == right.raw
+            && left.ephemeral        == right.ephemeral
+            && left.workingDirectory == right.workingDirectory
+            && left.recursiveSearch  == right.recursiveSearch
     }
 }

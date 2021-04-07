@@ -5,6 +5,7 @@
 //  Created by incetro on 12/1/20.
 //
 
+import Files
 import Synopsis
 import Foundation
 
@@ -102,6 +103,30 @@ open class CodegenApplication<
             let synopsis = Synopsis(sourceCodeProvider: SourceKittenCodeProvider())
             let specifications = synopsis.specifications(from: files)
 
+            if executionParameters.ephemeral {
+                for file in try files.compactMap({ try File(path: $0.absoluteString) }) {
+                    if executionParameters.verbose {
+                        print("Adding disabling flag to file \(file.name)...")
+                    }
+                    let content = try file.readAsString()
+                    let disabler = "// synopsis:disable"
+                    if !content.contains(disabler) {
+                        var rows = content.components(separatedBy: "\n")
+                        var disablerIndex = 0
+                        for row in rows {
+                            if row.hasPrefix("//") {
+                                disablerIndex += 1
+                            } else {
+                                break
+                            }
+                        }
+                        rows.insert(disabler, at: disablerIndex)
+                        let newContent = rows.joined(separator: "\n")
+                        try file.write(newContent)
+                    }
+                }
+            }
+
             if executionParameters.verbose {
                 print("Specifications print to Xcode:")
                 specifications.result.printToXcode()
@@ -146,6 +171,7 @@ open class CodegenApplication<
         -non_recursive
         This flag means that Autograph won't go through all subfolders to find implementations.
         Search will be made only in the input folder.
+
         """)
     }
 }

@@ -26,6 +26,7 @@ extension AutographExecutionParametersReader: ExecutionParametersReader {
     public func readExecutionParameters(fromCommandLineArguments commandLineArguments: [String]) throws -> AutographExecutionParameters {
 
         var verbose = false
+        var ephemeral = false
         var printHelp = false
         var recursiveSearch = true
         var projectName = AutographConstants.defaultProjectName
@@ -35,6 +36,10 @@ extension AutographExecutionParametersReader: ExecutionParametersReader {
 
             if "-verbose" == argument {
                 verbose = true
+            }
+
+            if "-ephemeral" == argument {
+                ephemeral = true
             }
 
             if "-help" == argument {
@@ -85,6 +90,7 @@ extension AutographExecutionParametersReader: ExecutionParametersReader {
             projectName:     projectName,
             recursiveSearch: recursiveSearch,
             verbose:         verbose,
+            ephemeral:       ephemeral,
             printHelp:       printHelp,
             raw:             raw
         )
