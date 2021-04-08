@@ -105,7 +105,7 @@ open class CodegenApplication<
 
             if executionParameters.ephemeral {
                 let ephemeralFoldersList = try inputFoldersProvider.ephemeralFoldersList(fromParameters: executionParameters)
-                for file in try ephemeralFoldersList.compactMap({ try File(path: $0) }) {
+                for file in try ephemeralFoldersList.flatMap({ try Folder(path: $0).files }) {
                     if executionParameters.verbose {
                         print("Adding disabling flag to file \(file.name)...")
                     }
