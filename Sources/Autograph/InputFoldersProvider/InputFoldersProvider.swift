@@ -22,4 +22,15 @@ public protocol InputFoldersProvider {
     /// Obtain input folders list from
     /// - Parameter parameters: current execution parameters
     func inputFoldersList(fromParameters parameters: Parameters) throws -> [String]
+
+    /// Obtain ephemeral input folders list from
+    /// - Parameter parameters: current execution parameters
+    func ephemeralFoldersList(fromParameters parameters: Parameters) throws -> [String]
+}
+
+public extension InputFoldersProvider {
+
+    /// Obtain ephemeral input folders list from
+    /// - Parameter parameters: current execution parameters
+    func ephemeralFoldersList(fromParameters parameters: Parameters) throws -> [String] { [] }
 }
