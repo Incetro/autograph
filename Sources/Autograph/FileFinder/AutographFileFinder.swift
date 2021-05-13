@@ -26,6 +26,9 @@ extension AutographFileFinder: FileFinder {
 
     public func findFiles(inFolder folder: String, parameters: AutographExecutionParameters) throws -> [URL] {
         let path = folder.isEmpty ? parameters.workingDirectory : folder
+        if let file = try? File(path: path) {
+            return [file.url]
+        }
         let folder = try Folder(path: path)
         let files = parameters.recursiveSearch ? folder.files.recursive : folder.files
         if parameters.verbose {
