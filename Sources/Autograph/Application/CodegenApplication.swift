@@ -87,28 +87,49 @@ open class CodegenApplication<
                 fromCommandLineArguments: commandLineArguments
             )
 
+            func verbosePrint(_ string: String) {
+                if executionParameters.verbose {
+                    print(string)
+                }
+            }
+
             if executionParameters.printHelp {
                 printHelp()
                 return 0
             }
 
+            verbosePrint("Obtaining input folders...")
             let inputFolders = try inputFoldersProvider.inputFoldersList(
                 fromParameters: executionParameters
             )
+            verbosePrint("Input folders list:\n\(inputFolders.joined(separator: "\n"))")
+            verbosePrint("Finding files in input folders...")
             let files = try fileFinder.findFiles(
                 inFolders: inputFolders,
                 parameters: executionParameters
             )
+            verbosePrint("Files list:\n\(files.map(\.absoluteString).joined(separator: "\n"))")
 
+            verbosePrint("Running Synopsis through files list...")
             let synopsis = Synopsis(sourceCodeProvider: SourceKittenCodeProvider())
             let specifications = synopsis.specifications(from: files)
 
+            if executionParameters.verbose {
+                print("Specifications print to Xcode:")
+                specifications.result.printToXcode()
+                if !specifications.errors.isEmpty {
+                    print("Specifications errors")
+                    specifications.errors.forEach {
+                        print("\($0.file) -> \($0.description)")
+                    }
+                }
+            }
+
             if executionParameters.ephemeral {
+                verbosePrint("Processing ephemeral files...")
                 let ephemeralFoldersList = try inputFoldersProvider.ephemeralFoldersList(fromParameters: executionParameters)
                 for file in try ephemeralFoldersList.flatMap({ try Folder(path: $0).files }) {
-                    if executionParameters.verbose {
-                        print("Adding disabling flag to file \(file.name)...")
-                    }
+                    verbosePrint("Adding disabling flag to file \(file.name)...")
                     let content = try file.readAsString()
                     let disabler = "// synopsis:disable"
                     if !content.contains(disabler) {
@@ -128,29 +149,22 @@ open class CodegenApplication<
                 }
             }
 
-            if executionParameters.verbose {
-                print("Specifications print to Xcode:")
-                specifications.result.printToXcode()
-                if !specifications.errors.isEmpty {
-                    print("Specifications errors")
-                    specifications.errors.forEach {
-                        print("\($0.file) -> \($0.description)")
-                    }
-                }
-            }
-
+            verbosePrint("Composing implementations...")
             let implementations = try implementationComposer.compose(
                 forSpecifications: specifications.result,
                 parameters: executionParameters
             )
+            verbosePrint("Implementations successfully composed")
 
+            verbosePrint("Writing implementations to their destinations...")
             try fileWriter.write(
                 implementations: implementations,
                 parameters: executionParameters
             )
+            verbosePrint("Done!")
 
         } catch {
-            print(error)
+            print("CodegenApplication error:\n\(error.localizedDescription)")
             return 1
         }
 
