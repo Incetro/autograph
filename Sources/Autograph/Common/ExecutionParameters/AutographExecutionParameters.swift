@@ -11,7 +11,7 @@ import Foundation
 
 /// All available execution parameters which we
 /// can use for our code generation
-public struct AutographExecutionParameters: ExecutionParameters {
+public final class AutographExecutionParameters: ExecutionParameters {
 
     /// Target project name
     ///
