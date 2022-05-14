@@ -65,6 +65,10 @@ public final class AutographExecutionParameters: ExecutionParameters {
     /// Application working directory
     public let workingDirectory: String
 
+    /// Due to https://github.com/jpsim/SourceKitten/issues/444
+    /// we were needed to add this parameter to temporary solve issue
+    public let resolvingInterpolation: Bool
+
     /// Collected parameters
     public let raw: [String: String]
 
@@ -80,20 +84,22 @@ public final class AutographExecutionParameters: ExecutionParameters {
     ///     about current codegen tool
     ///   - raw: collected parameters
     public init(
-        projectName:     String,
-        recursiveSearch: Bool,
-        verbose:         Bool,
-        ephemeral:       Bool,
-        printHelp:       Bool,
-        raw:             [String: String]
+        projectName:            String,
+        recursiveSearch:        Bool,
+        verbose:                Bool,
+        ephemeral:              Bool,
+        printHelp:              Bool,
+        resolvingInterpolation: Bool,
+        raw:                    [String: String]
     ) {
-        self.projectName      = projectName
-        self.recursiveSearch  = recursiveSearch
-        self.verbose          = verbose
-        self.ephemeral        = ephemeral
-        self.printHelp        = printHelp
-        self.raw              = raw
-        self.workingDirectory = FileManager.default.currentDirectoryPath
+        self.projectName            = projectName
+        self.recursiveSearch        = recursiveSearch
+        self.verbose                = verbose
+        self.ephemeral              = ephemeral
+        self.printHelp              = printHelp
+        self.resolvingInterpolation = resolvingInterpolation
+        self.raw                    = raw
+        self.workingDirectory       = FileManager.default.currentDirectoryPath
     }
 
     // MARK: - Accessors
@@ -105,12 +111,13 @@ public final class AutographExecutionParameters: ExecutionParameters {
     // MARK: - Equatable
 
     public static func == (left: AutographExecutionParameters, right: AutographExecutionParameters) -> Bool {
-        return left.projectName      == right.projectName
-            && left.verbose          == right.verbose
-            && left.printHelp        == right.printHelp
-            && left.raw              == right.raw
-            && left.ephemeral        == right.ephemeral
-            && left.workingDirectory == right.workingDirectory
-            && left.recursiveSearch  == right.recursiveSearch
+        return left.projectName             == right.projectName
+            && left.verbose                 == right.verbose
+            && left.printHelp               == right.printHelp
+            && left.raw                     == right.raw
+            && left.ephemeral               == right.ephemeral
+            && left.workingDirectory        == right.workingDirectory
+            && left.recursiveSearch         == right.recursiveSearch
+            && left.resolvingInterpolation  == right.resolvingInterpolation
     }
 }

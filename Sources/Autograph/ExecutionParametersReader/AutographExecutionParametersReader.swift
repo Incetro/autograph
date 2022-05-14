@@ -29,6 +29,7 @@ extension AutographExecutionParametersReader: ExecutionParametersReader {
         var ephemeral = false
         var printHelp = false
         var recursiveSearch = true
+        var resolvingInterpolation = false
         var projectName = AutographConstants.defaultProjectName
         var raw: [String: String] = [:]
 
@@ -67,6 +68,10 @@ extension AutographExecutionParametersReader: ExecutionParametersReader {
                 }
             }
 
+            if "-resolving_interpolation" == argument {
+                resolvingInterpolation = true
+            }
+
             if isKey(argument) {
                 if let value = commandLineArguments.nextAfter(index), !isKey(value) {
                     if verbose {
@@ -87,12 +92,13 @@ extension AutographExecutionParametersReader: ExecutionParametersReader {
         }
 
         return AutographExecutionParameters(
-            projectName:     projectName,
-            recursiveSearch: recursiveSearch,
-            verbose:         verbose,
-            ephemeral:       ephemeral,
-            printHelp:       printHelp,
-            raw:             raw
+            projectName:            projectName,
+            recursiveSearch:        recursiveSearch,
+            verbose:                verbose,
+            ephemeral:              ephemeral,
+            printHelp:              printHelp,
+            resolvingInterpolation: resolvingInterpolation,
+            raw:                    raw
         )
     }
 }

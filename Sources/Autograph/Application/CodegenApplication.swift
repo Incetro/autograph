@@ -110,9 +110,30 @@ open class CodegenApplication<
             )
             verbosePrint("Files list:\n\(files.map(\.absoluteString).joined(separator: "\n"))")
 
+            var resolvingInterpolationContent: [String: String] = [:]
+            if executionParameters.resolvingInterpolation {
+                try files.forEach { url in
+                    verbosePrint("Resolving interpolation for file at: \(url.path)")
+                    let file = try File(path: url.path)
+                    let content = try file.readAsString()
+                    let regex = "[а-яА-Я]+"
+                    if content.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil {
+                        let resolvedContent = content.removingRegexMatches(pattern: regex)
+                        resolvingInterpolationContent[file.path] = content
+                        try file.write(resolvedContent)
+                    }
+                }
+            }
+
             verbosePrint("Running Synopsis through files list...")
             let synopsis = Synopsis(sourceCodeProvider: SourceKittenCodeProvider())
             let specifications = synopsis.specifications(from: files)
+
+            if !resolvingInterpolationContent.isEmpty {
+                try resolvingInterpolationContent.forEach { key, value in
+                    try File(path: key).write(value)
+                }
+            }
 
             if executionParameters.verbose {
                 print("Specifications print to Xcode:")

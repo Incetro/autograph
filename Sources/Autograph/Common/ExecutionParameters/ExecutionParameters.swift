@@ -67,4 +67,8 @@ public protocol ExecutionParameters: Equatable {
 
     /// Collected parameters
     var raw: [String: String] { get }
+
+    /// Due to https://github.com/jpsim/SourceKitten/issues/444
+    /// we were needed to add this parameter to temporary solve issue
+    var resolvingInterpolation: Bool { get }
 }
