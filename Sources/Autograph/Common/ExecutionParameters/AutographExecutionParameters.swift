@@ -66,7 +66,7 @@ public final class AutographExecutionParameters: ExecutionParameters {
     public let workingDirectory: String
 
     /// Due to https://github.com/jpsim/SourceKitten/issues/444
-    /// we were needed to add this parameter to temporary solve issue
+    /// we were needed to add this parameter to temporary solve the issue
     public let resolvingInterpolation: Bool
 
     /// Collected parameters

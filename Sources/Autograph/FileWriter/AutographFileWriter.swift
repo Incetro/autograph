@@ -22,7 +22,7 @@ public final class AutographFileWriter {
     ) throws {
         try implementations.forEach { implementation in
             let folderURL = URL(fileURLWithPath: implementation.filePath).deletingLastPathComponent()
-            if let folder = try? Folder(path: folderURL.absoluteString) {
+            if let folder = try? Folder(path: folderURL.path) {
                 if parameters.verbose {
                     print("Folder \(folder.path) already exist")
                 }
@@ -41,22 +41,24 @@ public final class AutographFileWriter {
         toFilepath filePath: String,
         withParameters parameters: AutographExecutionParameters
     ) throws {
-
-        if parameters.verbose {
-            print("Processing file: \(filePath)")
+        
+        func vp(_ string: String) {
+            if parameters.verbose {
+                print(string)
+            }
         }
+        
+        vp("Processing file: \(filePath)")
 
         if let file = try? File(path: filePath), try file.readAsString() == sourceCode {
-            if parameters.verbose {
-                print("File \(filePath) didn't change, skipping...")
-            }
-            return
+            vp("File \(filePath) didn't change, skipping...")
         } else {
+            vp("Creating URL from '\(filePath)'")
             guard let fileURL = URL(string: filePath) else {
                 return
             }
             let folderURL = fileURL.deletingLastPathComponent()
-            let file = try Folder(path: folderURL.absoluteString).createFile(at: fileURL.lastPathComponent)
+            let file = try Folder(path: folderURL.path).createFile(at: fileURL.lastPathComponent)
             try file.write(sourceCode)
         }
     }

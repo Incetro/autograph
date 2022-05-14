@@ -184,9 +184,12 @@ open class CodegenApplication<
             )
             verbosePrint("Done!")
 
+        } catch let error as CustomStringConvertible {
+            print("CodegenApplication error:\n\(error.description)")
+            return 1
         } catch {
             print("CodegenApplication error:\n\(error.localizedDescription)")
-            return 1
+            return 2
         }
 
         return 0
@@ -214,6 +217,10 @@ open class CodegenApplication<
         a new generation attempt until you delete the disabling comment
         from your necessary files. Use it when you want to generate your code
         once and maintain it manually after that.
+
+        -resolving_interpolation
+        Due to https://github.com/jpsim/SourceKitten/issues/444
+        we were needed to add this parameter to temporary solve the issue
 
         """)
     }

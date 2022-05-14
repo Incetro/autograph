@@ -19,7 +19,7 @@ public final class AutographFileFinder {
 extension AutographFileFinder: FileFinder {
 
     public func findFiles(inFolders folders: [String], parameters: AutographExecutionParameters) throws -> [URL] {
-        try folders.reduce([URL]()) { (files, folder) in
+        try folders.reduce([]) { (files, folder) in
             try files + self.findFiles(inFolder: folder, parameters: parameters)
         }
     }
