@@ -182,7 +182,7 @@ open class CodegenApplication<
                 implementations: implementations,
                 parameters: executionParameters
             )
-            verbosePrint("Done!")
+            verbosePrint("Done ✅")
 
         } catch let error as CustomStringConvertible {
             print("CodegenApplication error:\n\(error.description)")

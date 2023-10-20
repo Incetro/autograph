@@ -55,6 +55,7 @@ public final class AutographFileWriter {
         } else {
             vp("Creating URL from '\(filePath)'")
             guard let fileURL = URL(string: filePath) else {
+                vp("❌ Cannot create URL from '\(filePath)'")
                 return
             }
             let folderURL = fileURL.deletingLastPathComponent()
