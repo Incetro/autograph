@@ -18,16 +18,15 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            name: "Synopsis",
             url: "https://github.com/Incetro/synopsis",
-            .branch("main")
+            from: "0.6.0"
         )
     ],
     targets: [
         .target(
             name: "Autograph",
             dependencies: [
-                "Synopsis"
+                .product(name: "Synopsis", package: "synopsis")
             ]
         ),
         .testTarget(
